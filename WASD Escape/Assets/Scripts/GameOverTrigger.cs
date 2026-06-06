@@ -3,40 +3,35 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// Àå¾Ö¹° ¶Ç´Â À§Çè Å¸ÀÏ¿¡ ÇÃ·¹ÀÌ¾î°¡ ´ê¾ÒÀ» ¶§ °ÔÀÓÀ» ¸®¼ÂÇÏ´Â ½ºÅ©¸³Æ®ÀÔ´Ï´Ù.
+/// ì¥ì• ë¬¼ ë˜ëŠ” ìœ„í—˜ íƒ€ì¼ì— í”Œë ˆì´ì–´ê°€ ë‹¿ì•˜ì„ ë•Œ ê²Œì„ì„ ë¦¬ì…‹í•˜ëŠ” ìŠ¤í¬ë¦½íŠ¸ì…ë‹ˆë‹¤.
 ///
-/// ´ã´ç ±â´É:
-/// 1. Player ÅÂ±×¸¦ °¡Áø ¿ÀºêÁ§Æ®¿Í Ãæµ¹Çß´ÂÁö È®ÀÎ
-/// 2. Ãæµ¹ »ç¿îµå Àç»ı
-/// 3. ÇÃ·¹ÀÌ¾î ÀÌµ¿ ¹× ¾Ö´Ï¸ŞÀÌ¼Ç Áï½Ã Á¤Áö
-/// 4. Ãæµ¹ ÀÌÆåÆ® »ı¼º
-/// 5. Àá½Ã ÈÄ ±âÁ¸ Å° ¹èÁ¤À» À¯ÁöÇÑ Ã¤ ÇöÀç ¾À Àç½ÃÀÛ
+/// ë‹´ë‹¹ ê¸°ëŠ¥:
+/// 1. Player íƒœê·¸ë¥¼ ê°€ì§„ ì˜¤ë¸Œì íŠ¸ì™€ ì¶©ëŒí–ˆëŠ”ì§€ í™•ì¸
+/// 2. ì¶©ëŒ ì‚¬ìš´ë“œ ì¬ìƒ
+/// 3. í”Œë ˆì´ì–´ ì´ë™ ë° ì• ë‹ˆë©”ì´ì…˜ ì¦‰ì‹œ ì •ì§€
+/// 4. ì¶©ëŒ ì´í™íŠ¸ ìƒì„±
+/// 5. ì ì‹œ í›„ ê¸°ì¡´ í‚¤ ë°°ì •ì„ ìœ ì§€í•œ ì±„ í˜„ì¬ ì”¬ ì¬ì‹œì‘
 ///
-/// »ç¿ë À§Ä¡:
-/// - Obstacle_FireClump ÇÁ¸®ÆÕ
+/// ì‚¬ìš© ìœ„ì¹˜:
+/// - Obstacle_FireClump í”„ë¦¬íŒ¹
 /// - WallTilemap_1
-///
-/// ÁÖÀÇ:
-/// - µğÀÚÀÎ¿ë Å¸ÀÏ¸ÊÀÎ WallTilemap_2¿¡´Â ÀÌ ½ºÅ©¸³Æ®¸¦ ºÙÀÌ¸é ¾È µË´Ï´Ù.
-/// - °°Àº ¿ÀºêÁ§Æ®¿¡ Collider2D°¡ ÀÖ¾î¾ß ÇÕ´Ï´Ù.
-/// - Trigger ¹æ½ÄÀÌ¸é Collider2DÀÇ Is Trigger¸¦ Ã¼Å©ÇÕ´Ï´Ù.
 /// </summary>
 public class GameOverTrigger : MonoBehaviour
 {
-    [Header("Ãæµ¹ ÀÌÆåÆ®")]
-    [Tooltip("ÇÃ·¹ÀÌ¾î°¡ Àå¾Ö¹°¿¡ ´ê¾ÒÀ» ¶§ »ı¼ºÇÒ ÀÌÆåÆ® ÇÁ¸®ÆÕ")]
+    [Header("ì¶©ëŒ ì´í™íŠ¸")]
+    [Tooltip("í”Œë ˆì´ì–´ê°€ ì¥ì• ë¬¼ì— ë‹¿ì•˜ì„ ë•Œ ìƒì„±í•  ì´í™íŠ¸ í”„ë¦¬íŒ¹")]
     public GameObject hitEffect;
 
-    [Header("¸®¼Â ´ë±â ½Ã°£")]
-    [Tooltip("Ãæµ¹ ÀÌÆåÆ®¸¦ º¸¿©ÁØ µÚ ¾ÀÀ» ¸®¼ÂÇÏ±â±îÁö ±â´Ù¸± ½Ã°£")]
+    [Header("ë¦¬ì…‹ ëŒ€ê¸° ì‹œê°„")]
+    [Tooltip("ì¶©ëŒ ì´í™íŠ¸ë¥¼ ë³´ì—¬ì¤€ ë’¤ ì”¬ì„ ë¦¬ì…‹í•˜ê¸°ê¹Œì§€ ê¸°ë‹¤ë¦´ ì‹œê°„")]
     public float resetDelay = 0.4f;
 
-    // Ãæµ¹ Ã³¸®°¡ ¿©·¯ ¹ø Áßº¹ ½ÇÇàµÇ´Â °ÍÀ» ¹æÁöÇÕ´Ï´Ù.
+    // ì¶©ëŒ ì²˜ë¦¬ê°€ ì—¬ëŸ¬ ë²ˆ ì¤‘ë³µ ì‹¤í–‰ë˜ëŠ” ê²ƒì„ ë°©ì§€í•©ë‹ˆë‹¤.
     private bool isHit = false;
 
     /// <summary>
-    /// Trigger ¹æ½ÄÀÇ Collider¿Í ´ê¾ÒÀ» ¶§ È£ÃâµË´Ï´Ù.
-    /// Tilemap Collider 2D¿¡¼­ Is Trigger¸¦ ÄÒ °æ¿ì ÀÌ ÇÔ¼ö°¡ ½ÇÇàµË´Ï´Ù.
+    /// Trigger ë°©ì‹ì˜ Colliderì™€ ë‹¿ì•˜ì„ ë•Œ í˜¸ì¶œë©ë‹ˆë‹¤.
+    /// Tilemap Collider 2Dì—ì„œ Is Triggerë¥¼ ì¼  ê²½ìš° ì´ í•¨ìˆ˜ê°€ ì‹¤í–‰ë©ë‹ˆë‹¤.
     /// </summary>
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -44,8 +39,8 @@ public class GameOverTrigger : MonoBehaviour
     }
 
     /// <summary>
-    /// Trigger°¡ ¾Æ´Ñ ÀÏ¹İ Collision ¹æ½ÄÀ¸·Î ´ê¾ÒÀ» ¶§ È£ÃâµË´Ï´Ù.
-    /// Is Trigger¸¦ ²ô°í »ç¿ëÇÏ´Â °æ¿ì¸¦ ´ëºñÇÏ¿© Ãß°¡Çß½À´Ï´Ù.
+    /// Triggerê°€ ì•„ë‹Œ ì¼ë°˜ Collision ë°©ì‹ìœ¼ë¡œ ë‹¿ì•˜ì„ ë•Œ í˜¸ì¶œë©ë‹ˆë‹¤.
+    /// Is Triggerë¥¼ ë„ê³  ì‚¬ìš©í•˜ëŠ” ê²½ìš°ë¥¼ ëŒ€ë¹„í•˜ì—¬ ì¶”ê°€í–ˆìŠµë‹ˆë‹¤.
     /// </summary>
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -53,8 +48,8 @@ public class GameOverTrigger : MonoBehaviour
     }
 
     /// <summary>
-    /// ½ÇÁ¦ Ãæµ¹ Ã³¸® °øÅë ÇÔ¼öÀÔ´Ï´Ù.
-    /// Trigger ¹æ½Ä°ú Collision ¹æ½Ä ¸ğµÎ ÀÌ ÇÔ¼ö¸¦ »ç¿ëÇÕ´Ï´Ù.
+    /// ì‹¤ì œ ì¶©ëŒ ì²˜ë¦¬ ê³µí†µ í•¨ìˆ˜ì…ë‹ˆë‹¤.
+    /// Trigger ë°©ì‹ê³¼ Collision ë°©ì‹ ëª¨ë‘ ì´ í•¨ìˆ˜ë¥¼ ì‚¬ìš©í•©ë‹ˆë‹¤.
     /// </summary>
     private void HandleHit(GameObject target)
     {
@@ -63,7 +58,7 @@ public class GameOverTrigger : MonoBehaviour
             return;
         }
 
-        // Player ÅÂ±×°¡ ¾Æ´Ñ ¿ÀºêÁ§Æ®¿Í ´êÀº °æ¿ì ¹«½ÃÇÕ´Ï´Ù.
+        // Player íƒœê·¸ê°€ ì•„ë‹Œ ì˜¤ë¸Œì íŠ¸ì™€ ë‹¿ì€ ê²½ìš° ë¬´ì‹œí•©ë‹ˆë‹¤.
         if (!target.CompareTag("Player"))
         {
             return;
@@ -71,16 +66,13 @@ public class GameOverTrigger : MonoBehaviour
 
         isHit = true;
 
-        // ¾î¶² ¿ÀºêÁ§Æ® ¶§¹®¿¡ ¸®¼ÂµÆ´ÂÁö È®ÀÎÇÏ±â À§ÇÑ ·Î±×ÀÔ´Ï´Ù.
-        Debug.Log("¸®¼Â ¹ß»ı ¿ÀºêÁ§Æ®: " + gameObject.name);
-
-        // Àå¾Ö¹° Ãæµ¹ È¿°úÀ½ Àç»ı
+        // ì¥ì• ë¬¼ ì¶©ëŒ íš¨ê³¼ìŒ ì¬ìƒ
         if (AudioManager.Instance != null)
         {
             AudioManager.Instance.PlayHitSound();
         }
 
-        // ÇÃ·¹ÀÌ¾î°¡ ¸®¼Â ´ë±â ½Ã°£ µ¿¾È °è¼Ó ¿òÁ÷ÀÌÁö ¾Êµµ·Ï Áï½Ã ¸ØÃä´Ï´Ù.
+        // í”Œë ˆì´ì–´ê°€ ë¦¬ì…‹ ëŒ€ê¸° ì‹œê°„ ë™ì•ˆ ê³„ì† ì›€ì§ì´ì§€ ì•Šë„ë¡ ì¦‰ì‹œ ë©ˆì¶¥ë‹ˆë‹¤.
         DragonPlayerMove playerMove = target.GetComponent<DragonPlayerMove>();
 
         if (playerMove != null)
@@ -88,7 +80,7 @@ public class GameOverTrigger : MonoBehaviour
             playerMove.StopMovementImmediately();
         }
 
-        // ÇÃ·¹ÀÌ¾î À§Ä¡¿¡ Ãæµ¹ ÀÌÆåÆ®¸¦ »ı¼ºÇÕ´Ï´Ù.
+        // í”Œë ˆì´ì–´ ìœ„ì¹˜ì— ì¶©ëŒ ì´í™íŠ¸ë¥¼ ìƒì„±í•©ë‹ˆë‹¤.
         if (hitEffect != null)
         {
             Instantiate(hitEffect, target.transform.position, Quaternion.identity);
@@ -98,8 +90,8 @@ public class GameOverTrigger : MonoBehaviour
     }
 
     /// <summary>
-    /// ÀÌÆåÆ®°¡ º¸ÀÏ ½Ã°£À» Á¶±İ ÁØ µÚ ¾ÀÀ» ´Ù½Ã ½ÃÀÛÇÕ´Ï´Ù.
-    /// WaitForSecondsRealtimeÀ» »ç¿ëÇÏ¿© Time.timeScale »óÅÂ¿Í °ü°è¾øÀÌ ÀÛµ¿ÇÏ°Ô ÇÕ´Ï´Ù.
+    /// ì´í™íŠ¸ê°€ ë³´ì¼ ì‹œê°„ì„ ì¡°ê¸ˆ ì¤€ ë’¤ ì”¬ì„ ë‹¤ì‹œ ì‹œì‘í•©ë‹ˆë‹¤.
+    /// WaitForSecondsRealtimeì„ ì‚¬ìš©í•˜ì—¬ Time.timeScale ìƒíƒœì™€ ê´€ê³„ì—†ì´ ì‘ë™í•˜ê²Œ í•©ë‹ˆë‹¤.
     /// </summary>
     private IEnumerator ResetAfterDelay()
     {
@@ -111,7 +103,7 @@ public class GameOverTrigger : MonoBehaviour
         }
         else
         {
-            // È¤½Ã GameSessionManager°¡ ¾øÀ» ¶§µµ ¾À ¸®¼ÂÀÌ µÇµµ·Ï ¿¹¿Ü Ã³¸®ÇÕ´Ï´Ù.
+            // í˜¹ì‹œ GameSessionManagerê°€ ì—†ì„ ë•Œë„ ì”¬ ë¦¬ì…‹ì´ ë˜ë„ë¡ ì˜ˆì™¸ ì²˜ë¦¬í•©ë‹ˆë‹¤.
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
